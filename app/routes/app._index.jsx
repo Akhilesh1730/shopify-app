@@ -104,11 +104,13 @@ export default function Index() {
   }, [productId, shopify]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      import("@shopify/app-bridge/actions").then(({ Redirect }) => {
+    if (typeof window !== "undefined" && app) {
+      (async () => {
+        const appBridgeActions = await import("@shopify/app-bridge/actions");
+        const Redirect = appBridgeActions.Redirect;
         const redirect = Redirect.create(app);
         redirect.dispatch(Redirect.Action.REMOTE, "https://app.shipdartexpress.com");
-      });
+      })();
     }
   }, [shopify]);
   const generateProduct = () => fetcher.submit({}, { method: "POST" });

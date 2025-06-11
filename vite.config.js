@@ -66,8 +66,12 @@ export default defineConfig({
   ],
   build: {
     assetsInlineLimit: 0,
+    rollupOptions: {
+      external: ["@shopify/app-bridge", "@shopify/app-bridge/actions"],
+    }
   },
   optimizeDeps: {
     include: ["@shopify/app-bridge-react", "@shopify/polaris"],
+    exclude: ["@shopify/app-bridge", "@shopify/app-bridge/actions"]
   },
 });
