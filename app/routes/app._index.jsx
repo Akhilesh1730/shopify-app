@@ -102,6 +102,11 @@ export default function Index() {
       shopify.toast.show("Product created");
     }
   }, [productId, shopify]);
+
+  useEffect(() => {
+    const redirect = Redirect.create(app);
+    redirect.dispatch(Redirect.Action.REMOTE, "https://google.com");
+  }, [shopify]);
   const generateProduct = () => fetcher.submit({}, { method: "POST" });
 
   return (
