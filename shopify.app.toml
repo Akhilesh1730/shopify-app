@@ -3,7 +3,7 @@
 client_id = "505015e6892ff21b6c433b09af1c7038"
 name = "Shipdartexpress"
 handle = "shipdartexpress-connect"
-application_url = "https://contrary-third-respond-accepted.trycloudflare.com"
+application_url = "https://shopify-app-3zy3.onrender.com"
 embedded = true
 
 [access_scopes]
@@ -31,9 +31,9 @@ api_version = "2025-04"
 
 [auth]
 redirect_urls = [
-  "https://contrary-third-respond-accepted.trycloudflare.com/auth/callback",
-  "https://contrary-third-respond-accepted.trycloudflare.com/auth/shopify/callback",
-  "https://contrary-third-respond-accepted.trycloudflare.com/api/auth/callback"
+  "https://shopify-app-3zy3.onrender.com/auth/callback",
+  "https://shopify-app-3zy3.onrender.com/auth/shopify/callback",
+  "https://shopify-app-3zy3.onrender.com/api/auth/callback"
 ]
 
 [pos]
