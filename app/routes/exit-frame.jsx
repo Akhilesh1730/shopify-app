@@ -1,7 +1,6 @@
-// app/routes/exit-frame.tsx
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 
-export function loader({ request }: LoaderFunctionArgs) {
+export const loader = ({ request }) => {
   const url = new URL(request.url);
   const to = url.searchParams.get("to");
 
@@ -9,9 +8,12 @@ export function loader({ request }: LoaderFunctionArgs) {
     return new Response("Invalid redirect", { status: 400 });
   }
 
-  // Return HTML that redirects the top window
   return new Response(
     `<html>
+      <head>
+        <meta charset="utf-8" />
+        <title>Redirecting...</title>
+      </head>
       <body>
         <script>
           window.top.location.href = ${JSON.stringify(to)};
@@ -25,4 +27,4 @@ export function loader({ request }: LoaderFunctionArgs) {
       },
     }
   );
-}
+};
