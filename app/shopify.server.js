@@ -1,5 +1,5 @@
 import "@shopify/shopify-app-remix/adapters/node";
-import { redirect } from "@shopify/shopify-app-remix/server"
+import { redirect } from "@remix-run/node";
 import {
   ApiVersion,
   AppDistribution,
