@@ -14,6 +14,7 @@ import {
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
+import { Redirect } from "@shopify/app-bridge/actions";
 
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
@@ -101,7 +102,10 @@ export default function Index() {
     if (productId) {
       shopify.toast.show("Product created");
     }
-    window.parent.location.href = "https://app.shipdartexpress.com";
+    if (shopify) {
+      const redirect = Redirect.create(shopify);
+      redirect.dispatch(Redirect.Action.REMOTE, "https://app.shipdartexpress.com");
+    }
   }, [productId, shopify]);
 
   const generateProduct = () => fetcher.submit({}, { method: "POST" });
