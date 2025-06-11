@@ -3,8 +3,7 @@ import {
   ApiVersion,
   AppDistribution,
   shopifyApp,
-  redirect,
-} from "@shopify/shopify-app-remix/server"; // ⬅️ Make sure `redirect` is imported from here
+} from "@shopify/shopify-app-remix/server";
 import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
 import prisma from "./db.server";
 
@@ -24,15 +23,13 @@ const shopify = shopifyApp({
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
-
-  auth: {
-    async afterAuth({ session, shop, accessToken }) {
-      console.log("✅ OAuth completed for", shop);
-
-      // 🔁 Your custom redirect
-      return redirect("https://app.shipdartexpress.com");
-    },
-  },
+    auth: {
+      afterAuth({ session, shop, accessToken }) {
+        // Default: return new Response(null, { status: 302, headers: { Location: "/" } });
+        console.log("reached")
+        return redirect("https://app.shipdartexpress.com");
+      }
+    }
 });
 
 export default shopify;
