@@ -25,11 +25,15 @@ const shopify = shopifyApp({
     : {}),
     hooks: {
       afterAuth: async ({ session, admin }) => {
-        shopify.registerWebhooks({ session });
-        // access the admin context
-        console.log("Connected");
-        return redirect("https://app.shipdartexpress.com");
-      },
+        try {
+          await shopify.registerWebhooks({ session });
+          console.log("✅ Connected to", session.shop);
+          return redirect("https://app.shipdartexpress.com");
+        } catch (error) {
+          console.error("❌ afterAuth error:", error);
+          return new Response("Internal Server Error", { status: 500 });
+        }
+      }
     },
 });
 
