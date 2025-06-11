@@ -29,7 +29,7 @@ const shopify = shopifyApp({
         try {
           await shopify.registerWebhooks({ session });
           console.log("✅ Connected to", session.shop);
-          return redirect("https://app.shipdartexpress.com");
+          return redirect(`/exit-frame?to=https://google.com`);
         } catch (error) {
           console.error("❌ afterAuth error:", error);
           return new Response("Internal Server Error", { status: 500 });
