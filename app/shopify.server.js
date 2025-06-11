@@ -29,7 +29,7 @@ const shopify = shopifyApp({
         // 🔁 Your custom redirect
         return redirect("https://app.shipdartexpress.com");
       },
-    },
+    }, 
 });
 
 export default shopify;
