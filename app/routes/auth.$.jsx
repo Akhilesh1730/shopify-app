@@ -2,6 +2,6 @@ import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
-
-  return redirect("https://app.shipdartexpress.com");
+  console.log("authjsx")
+  return null;
 };

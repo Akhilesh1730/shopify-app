@@ -26,7 +26,7 @@ const shopify = shopifyApp({
     auth: {
       afterAuth({ session, shop, accessToken }) {
         // Default: return new Response(null, { status: 302, headers: { Location: "/" } });
-        console.log("reached")
+        console.log("reached");
         return redirect("https://app.shipdartexpress.com");
       }
     }
