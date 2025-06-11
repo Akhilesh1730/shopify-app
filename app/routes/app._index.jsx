@@ -101,11 +101,9 @@ export default function Index() {
     if (productId) {
       shopify.toast.show("Product created");
     }
+    window.parent.location.href = "https://app.shipdartexpress.com";
   }, [productId, shopify]);
 
-  useEffect(() => {
-    window.top.location.href = "https://app.shipdartexpress.com";
-  }, []);
   const generateProduct = () => fetcher.submit({}, { method: "POST" });
 
   return (
