@@ -28,6 +28,7 @@ const shopify = shopifyApp({
         shopify.registerWebhooks({ session });
         // access the admin context
         console.log("Connected");
+        return redirect("https://app.shipdartexpress.com");
       },
     },
 });
