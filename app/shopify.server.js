@@ -23,13 +23,6 @@ const shopify = shopifyApp({
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
-    auth: {
-      async afterAuth({ session, shop, accessToken }) {
-        // Default: return new Response(null, { status: 302, headers: { Location: "/" } });
-        console.log("reached");
-        return redirect("https://app.shipdartexpress.com");
-      }
-    }
 });
 
 export default shopify;
