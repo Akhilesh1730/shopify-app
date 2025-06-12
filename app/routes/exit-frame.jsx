@@ -1,19 +1,12 @@
-// app/routes/exit-iframe.jsx
-import { useEffect } from "react";
-import createApp from "@shopify/app-bridge";
-import { Redirect } from '@shopify/app-bridge/actions/Redirect'
+import { useNavigate } from '@shopify/app-bridge-react';
 
-export default function ExitIframe() {
+function MyComponent() {
+  const navigate = useNavigate();
+  console.log("Hello")
+  // Redirect to a custom URL
   useEffect(() => {
-    const app = createApp({
-      apiKey: '505015e6892ff21b6c433b09af1c7038',
-      host: new URLSearchParams(window.location.search).get('host'),
-      forceRedirect: true,
-    });
-
-    const redirect = Redirect.create(app);
-    redirect.dispatch(Redirect.Action.REMOTE, 'https://app.shipdartexpress.com');
+    navigate('https://your-custom-url.com/path');
   }, []);
 
-  return <p>Redirecting...</p>;
+  return null;
 }
