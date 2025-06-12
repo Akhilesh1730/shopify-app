@@ -1,3 +1,4 @@
+// app/routes/exit-iframe.jsx
 import { useEffect } from "react";
 import createApp from "@shopify/app-bridge";
 import { Redirect } from "@shopify/app-bridge/actions";
@@ -5,14 +6,14 @@ import { Redirect } from "@shopify/app-bridge/actions";
 export default function ExitIframe() {
   useEffect(() => {
     const app = createApp({
-      apiKey: "YOUR_API_KEY",
-      host: new URLSearchParams(window.location.search).get("host"),
+      apiKey: '',
+      host: new URLSearchParams(window.location.search).get('host'),
       forceRedirect: true,
     });
 
     const redirect = Redirect.create(app);
-    redirect.dispatch(Redirect.Action.REMOTE, "https://your-app.com/app");
+    redirect.dispatch(Redirect.Action.REMOTE, 'https://your-custom-url.com/path');
   }, []);
 
-  return <p>Redirecting you to the app...</p>;
+  return <p>Redirecting...</p>;
 }
