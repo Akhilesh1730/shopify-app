@@ -1,12 +1,6 @@
-import { useNavigate } from '@shopify/app-bridge-react';
+import createApp from '@shopify/app-bridge';
+import {Redirect} from '@shopify/app-bridge/actions';
 
-function MyComponent() {
-  const navigate = useNavigate();
-  console.log("Hello")
-  // Redirect to a custom URL
-  useEffect(() => {
-    navigate('https://your-custom-url.com/path');
-  }, []);
+const app = createApp(config);
 
-  return null;
-}
+const redirect = Redirect.create(app);
