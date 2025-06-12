@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import createApp from "@shopify/app-bridge";
-import { Redirect } from "@shopify/app-bridge/actions";
+import { Redirect } from "@shopify/app-bridge/actions/Redirect";
 
 export default function ExitIframe() {
-  console.log("exit");
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const host = params.get("host");
