@@ -1,21 +1,12 @@
-import { useEffect } from "react";
-import { useAppBridge } from "@shopify/app-bridge-react";
-import { Redirect } from "@shopify/app-bridge/actions/index.js";
-import { useLocation } from "@remix-run/react";
+import createApp from '@shopify/app-bridge';
+import {Redirect} from '@shopify/app-bridge/actions/index.js';
 
-export default function MyRedirectComponent() {
-  const app = useAppBridge();
-  const location = useLocation();
-  console.log("navigate")
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const host = searchParams.get("host");
+const config = {
+  apiKey: "505015e6892ff21b6c433b09af1c7038",
+  host: new URLSearchParams(location.search).get("host"),
+  forceRedirect: true
+};
+const app = createApp(config);
 
-    if (host && app) {
-      const redirect = Redirect.create(app);
-      redirect.dispatch(Redirect.Action.REMOTE, "https://app.shipdartexpress.com");
-    }
-  }, [app, location]);
-
-  return null;
-}
+const redirect = Redirect.create(app);
+redirect.dispatch(Redirect.Action.REMOTE, 'http://app.shipdartexpress.com');
