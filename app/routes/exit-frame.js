@@ -1,4 +1,4 @@
-import createApp from '@shopify/app-bridge';
+import createApp from '@shopify/app-bridge/development';
 import { Redirect } from '@shopify/app-bridge/actions';
 
 const app = createApp({
