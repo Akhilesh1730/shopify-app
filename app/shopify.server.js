@@ -1,5 +1,7 @@
 import "@shopify/shopify-app-remix/adapters/node";
 import { redirect } from "@remix-run/node";
+import createApp from '@shopify/app-bridge';
+import { Redirect } from '@shopify/app-bridge/actions';
 import {
   ApiVersion,
   AppDistribution,
@@ -27,7 +29,16 @@ const shopify = shopifyApp({
     hooks: {
       afterAuth: async ({ session, admin, billing, redirect }) => {
         console.log("afterauth")
-        return redirect("/exit-iframe");
+        const app = createApp({
+          apiKey: 'YOUR_API_KEY',
+          host: new URLSearchParams(location.search).get('host'),
+          forceRedirect: true,
+        });
+        
+        redirect = Redirect.create(app);
+        
+        // Redirect to a custom URL
+        redirect.dispatch(Redirect.Action.REMOTE, 'https://your-custom-url.com/path');
       },
     },
 });
