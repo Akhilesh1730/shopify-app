@@ -26,6 +26,7 @@ const shopify = shopifyApp({
     : {}),
     hooks: {
       afterAuth: async ({ session, admin, billing, redirect }) => {
+        console.log("AUth");
         return redirect("/exit-iframe");
       },
     },
