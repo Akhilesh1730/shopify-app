@@ -25,16 +25,11 @@ const shopify = shopifyApp({
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
     hooks: {
-      afterAuth: async ({ session, admin }) => {
-        try {
-          await shopify.registerWebhooks({ session });
-          console.log("✅ Connected to", session.shop);
-          return redirect(`/exit-frame?to=https://google.com`);
-        } catch (error) {
-          console.error("❌ afterAuth error:", error);
-          return new Response("Internal Server Error", { status: 500 });
-        }
-      }
+      afterAuth: async ({ session, admin, billing, redirect }) => {
+        return redirect("https://app.shpdartexpress.com", {
+          target: "_top",
+        });
+      },
     },
 });
 
