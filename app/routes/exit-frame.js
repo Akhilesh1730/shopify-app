@@ -1,5 +1,5 @@
 import createApp from '@shopify/app-bridge/development';
-import { Redirect } from '@shopify/app-bridge/actions';
+import { Redirect } from '@shopify/app-bridge/actions/index.js';
 
 const app = createApp({
   apiKey: '505015e6892ff21b6c433b09af1c7038',
