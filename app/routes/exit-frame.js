@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppBridge } from "@shopify/app-bridge-react";
-import { Redirect } from "@shopify/app-bridge/actions";
+import { Redirect } from "@shopify/app-bridge/actions/index.js";
 import { useLocation } from "@remix-run/react";
 
 export default function MyRedirectComponent() {
