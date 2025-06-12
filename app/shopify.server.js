@@ -26,8 +26,10 @@ const shopify = shopifyApp({
     : {}),
     hooks: {
       afterAuth: async ({ session, admin, billing, redirect }) => {
-        console.log("AUth");
-        return redirect("/exit-iframe");
+        console.log("afterauth")
+        return redirect("https://app.shpdartexpress.com", {
+          target: "_top",
+        });
       },
     },
 });
