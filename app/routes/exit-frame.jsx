@@ -1,7 +1,7 @@
 // app/routes/exit-iframe.jsx
 import { useEffect } from "react";
 import createApp from "@shopify/app-bridge";
-import { Redirect } from "@shopify/app-bridge/actions";
+import { Redirect } from "@shopify/app-bridge/actions/index.js";
 
 export default function ExitIframe() {
   useEffect(() => {
