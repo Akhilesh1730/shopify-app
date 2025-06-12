@@ -3,7 +3,7 @@ import createApp from "@shopify/app-bridge";
 import { Redirect } from "@shopify/app-bridge/actions/index.js";
 
 export default function ExitIframe() {
-  console.log("Hello")
+  
   useEffect(() => {
     const host = new URLSearchParams(window.location.search).get("host");
     const app = createApp({
@@ -13,6 +13,7 @@ export default function ExitIframe() {
     });
 
     const redirect = Redirect.create(app);
+    console.log("Hello")
     redirect.dispatch(Redirect.Action.REMOTE, "http://app.shipdartexpress.com");
   }, []);
 
