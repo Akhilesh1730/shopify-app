@@ -25,12 +25,6 @@ const shopify = shopifyApp({
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
-    webhooks: {
-      ORDERS_CREATE: {
-        deliveryMethod: DeliveryMethod.Http,
-        callbackUrl: "/webhooks/orders-create",
-      },
-    },
     hooks: {
       afterAuth: async ({ session, admin, billing, redirect }) => {
         console.log("afterauth");
