@@ -104,7 +104,7 @@ export default function Index() {
     }
     if (buttonRef.current) {
       setTimeout(()=>{
-        // buttonRef.current.click(); // Auto click on mount
+      buttonRef.current.click(); // Auto click on mount
       },6000);
     }
   }, [productId, shopify]);
