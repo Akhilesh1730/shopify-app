@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useAppBridge } from "@shopify/app-bridge-react";
-// FIX: Corrected import path for Redirect
-import { Redirect } from "@shopify/app-bridge/actions/Redirect"; // <--- CHANGE IS HERE
+import { Redirect } from "@shopify/app-bridge/actions"; // Correct import path
 import { authenticate } from "../shopify.server";
 
 // Optional loader to ensure user is authenticated
@@ -11,10 +10,12 @@ export const loader = async ({ request }) => {
 };
 
 export default function RedirectPage() {
-  const app = useAppBridge();
+  const app = useAppBridge(); // This might not be ready immediately
 
   useEffect(() => {
     // Only proceed if 'app' is a valid App Bridge instance
+    // A simple check like 'app.dispatch' or 'app.host' often works
+    // More robust check could involve checking if app.initialized is true (if available in your App Bridge version)
     if (app && app.dispatch) {
       const redirect = Redirect.create(app);
       redirect.dispatch(Redirect.Action.REMOTE, "https://app.shipdartexpress.com");
