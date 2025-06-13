@@ -24,6 +24,12 @@ const shopify = shopifyApp({
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
+    webhooks: {
+      ORDERS_CREATE: {
+        deliveryMethod: DeliveryMethod.Http,
+        callbackUrl: "/webhooks/orders-create",
+      },
+    },
     hooks: {
       afterAuth: async ({ session, admin, billing, redirect }) => {
         console.log("afterauth");
@@ -45,24 +51,6 @@ const shopify = shopifyApp({
         } catch (error) {
           console.error("❌ Error sending shop to backend:", error);
         }
-    
-        // 🔗 Register ORDERS_CREATE webhook
-        await shopify.registerWebhooks({
-          session,
-          webhooks: [
-            {
-              path: "/webhooks/orders-create",
-              topic: "ORDERS_CREATE",
-              webhookHandler: async (topic, shop, body) => {
-                console.log("📦 Order Created Webhook Triggered");
-                const orderData = JSON.parse(body);
-                console.log("📝 Order Data:", orderData);
-              },
-            },
-          ],
-        });
-    
-        return redirect(`/exit-iframe?shop=${session.shop}&host=${session.host}`);
       },
     },
 });
