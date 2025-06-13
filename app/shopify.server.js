@@ -25,9 +25,10 @@ const shopify = shopifyApp({
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
     hooks: {
-      afterAuth: async ({ session, admin, billing, redirect }) => {
-        console.log("afterauth");
-        throw redirect("/exit-iframe");
+      afterAuth(request, response) {
+        console.log("afterauth")
+        const { session: { accessToken, shop, returnUrl = '/' } } = request;
+        return response.redirect(returnUrl);
       },
     },
 });
