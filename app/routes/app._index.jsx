@@ -111,7 +111,7 @@ export default function Index() {
   }, [productId, shopify]);
 
   const handleRedirect = () =>{
-    window.top.location.href= "https://app.shipdartexpress.com";
+    window.parent.location.href= "https://app.shipdartexpress.com";
   }
 
   const generateProduct = () => fetcher.submit({}, { method: "POST" });
