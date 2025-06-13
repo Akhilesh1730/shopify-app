@@ -41,7 +41,6 @@ const shopify = shopifyApp({
               shop: session.shop,
             }),
           });
-    
           console.log("✅ Shop sent to backend API");
         } catch (error) {
           console.error("❌ Error sending shop to backend:", error);
