@@ -29,6 +29,10 @@ api_version = "2025-04"
   topics = [ "app/uninstalled" ]
   uri = "/webhooks/app/uninstalled"
 
+[[webhooks.subscriptions]]
+  topics = [ "orders/create" ]
+  uri = "/webhooks/app/order_create"
+
 [auth]
 redirect_urls = [
   "https://tears-evanescence-change-mhz.trycloudflare.com/auth/callback",

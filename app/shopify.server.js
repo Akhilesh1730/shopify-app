@@ -28,23 +28,41 @@ const shopify = shopifyApp({
       afterAuth: async ({ session, admin, billing, redirect }) => {
         console.log("afterauth");
         console.log("✅ afterAuth called for", session.shop);
-
-    // 🔥 Send shop name to your Flask API
-    try {
-      await fetch("https://db8b-2401-4900-889e-3461-b459-b22a-f5d8-e8e7.ngrok-free.app/store-shop", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          shop: session.shop,
-        }),
-      });
-
-      console.log("✅ Shop sent to backend API");
-    } catch (error) {
-      console.error("❌ Error sending shop to backend:", error);
-    }
+    
+        // 🔥 Send shop name to your Flask API
+        try {
+          await fetch("https://db8b-2401-4900-889e-3461-b459-b22a-f5d8-e8e7.ngrok-free.app/store-shop", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              shop: session.shop,
+            }),
+          });
+    
+          console.log("✅ Shop sent to backend API");
+        } catch (error) {
+          console.error("❌ Error sending shop to backend:", error);
+        }
+    
+        // 🔗 Register ORDERS_CREATE webhook
+        await shopify.registerWebhooks({
+          session,
+          webhooks: [
+            {
+              path: "/webhooks/orders-create",
+              topic: "ORDERS_CREATE",
+              webhookHandler: async (topic, shop, body) => {
+                console.log("📦 Order Created Webhook Triggered");
+                const orderData = JSON.parse(body);
+                console.log("📝 Order Data:", orderData);
+              },
+            },
+          ],
+        });
+    
+        return redirect(`/exit-iframe?shop=${session.shop}&host=${session.host}`);
       },
     },
 });
