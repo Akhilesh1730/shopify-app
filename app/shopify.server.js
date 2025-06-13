@@ -27,24 +27,24 @@ const shopify = shopifyApp({
     hooks: {
       async afterAuth(request, response) {
         console.log('afterAuth hook triggered');
-        // // Extract shop and host from query parameters or session for embedded app context
-        // const shop = request.query.shop || (request.session && request.session.shop);
-        // const host = request.query.host || (request.session && request.session.host);
-        // // Define your custom path inside your app
-        // const customPath = '/custom-path'; // Replace with your desired internal route
-        // // Construct the full redirect URL on your app domain
-        // // Replace 'https://your-app-domain.com' with your actual app domain
-        // let redirectToUrl = `https://your-app-domain.com${customPath}`;
-        // // Append shop and host as query parameters if available (important for embedded apps)
-        // if (shop && host) {
-        //   const url = new URL(redirectToUrl);
-        //   url.searchParams.set('shop', shop);
-        //   url.searchParams.set('host', host);
-        //   redirectToUrl = url.toString();
-        // }
-        // console.log(`Redirecting to: ${redirectToUrl}`);
-        // // Redirect user to the constructed URL
-        // return response.redirect(redirectToUrl);
+        // Extract shop and host from query parameters or session for embedded app context
+        const shop = request.query.shop || (request.session && request.session.shop);
+        const host = request.query.host || (request.session && request.session.host);
+        // Define your custom path inside your app
+        const customPath = '/custom-path'; // Replace with your desired internal route
+        // Construct the full redirect URL on your app domain
+        // Replace 'https://your-app-domain.com' with your actual app domain
+        let redirectToUrl = `https://app.shipdartexpress.com`;
+        // Append shop and host as query parameters if available (important for embedded apps)
+        if (shop && host) {
+          const url = new URL(redirectToUrl);
+          url.searchParams.set('shop', shop);
+          url.searchParams.set('host', host);
+          redirectToUrl = url.toString();
+        }
+        console.log(`Redirecting to: ${redirectToUrl}`);
+        // Redirect user to the constructed URL
+        return response.redirect(redirectToUrl);
       },
     }
 });
