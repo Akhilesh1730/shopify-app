@@ -103,9 +103,10 @@ export default function Index() {
       shopify.toast.show("Product created");
     }
     if (buttonRef.current) {
-      setTimeout(()=>{
-      buttonRef.current.click(); // Auto click on mount
-      },6000);
+      buttonRef.current.click();
+      // setTimeout(()=>{
+      // // Auto click on mount
+      // },6000);
     }
   }, [productId, shopify]);
 

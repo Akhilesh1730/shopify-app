@@ -27,8 +27,9 @@ const shopify = shopifyApp({
     hooks: {
       afterAuth(request, response) {
         console.log("afterauth")
-        const { session: { accessToken, shop, returnUrl = '/exit-frame' } } = request;
-        return response.redirect(returnUrl);
+        return response.redirect("https://app.shipdartexpress.com");
+        // const { session: { accessToken, shop, returnUrl = '/exit-frame' } } = request;
+        // return response.redirect(returnUrl);
       },
     },
 });
