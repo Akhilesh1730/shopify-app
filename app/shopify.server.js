@@ -24,6 +24,13 @@ const shopify = shopifyApp({
   ...(process.env.SHOP_CUSTOM_DOMAIN
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
+    hooks: {
+      afterAuth(request, response) {
+        console.log("afterauth")
+        const { session: { accessToken, shop, returnUrl = '/exit-frame' } } = request;
+        return response.redirect(returnUrl);
+      },
+    },
 });
 
 export default shopify;
