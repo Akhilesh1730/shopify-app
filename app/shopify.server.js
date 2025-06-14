@@ -31,7 +31,8 @@ const shopify = shopifyApp({
       afterAuth: async ({ session, admin, billing, redirect }) => {
         console.log("afterauth");
         console.log("✅ afterAuth called for", session.shop);
-        console.log("✅ afterAuth called for",  process.env.SECRET_KEY);
+        console.log("✅ afterAuth called for",  process.env.SECRET_KEY
+        );
         // 🔥 Send shop name to your Flask API
         try {
           var data = {
