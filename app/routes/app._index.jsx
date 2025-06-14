@@ -114,9 +114,9 @@ export default function Index() {
 
   return (
     <div style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <div style={{width:'300px',height:'400px', background:'#e5e5e5', display:'flex', flexDirection:'col' }}>
+          <div style={{width:'300px',height:'400px', background:'#e5e5e5', display:'flex', flexDirection:'row' }}>
             <h2 style={{fontSize:'22px', color:'#000000'}}>If not redirected then please allow the redirection from this page and click the redirect button</h2>
-            <button ref={buttonRef} onClick={handleRedirect} style={{padding:'20px 12px', background:'#000000', color:'#ffffff'}}>
+            <button ref={buttonRef} onClick={handleRedirect} style={{width:'40px', height:'20px',padding:'20px 12px', background:'#000000', color:'#ffffff'}}>
             Redirect To Shipdartexpress
             </button> 
             <button ref={buttonRef} onClick={handleRedirect} style={{ display: "none" }}>
