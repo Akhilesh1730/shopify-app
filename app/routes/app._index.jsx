@@ -114,9 +114,10 @@ export default function Index() {
 
   return (
     <div style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <div style={{width:'300px',height:'400px', background:'#e5e5e5', display:'flex', flexDirection:'row' }}>
-            <h2 style={{fontSize:'22px', color:'#000000'}}>If not redirected then please allow the redirection from this page and click the redirect button</h2>
-            <button ref={buttonRef} onClick={handleRedirect} style={{width:'40px', height:'20px',padding:'20px 12px', background:'#000000', color:'#ffffff'}}>
+          <div style={{width:'500px',height:'380px', padding:'20px', background:'#e5e5e5' }}>
+            <h2 style={{fontSize:'22px', color:'#000000', marginBottom:'10px'}}>Shipdart Redirection</h2>
+            <p style={{fontSize:'18px', color:'#6c757d'}}>It looks like your browser may have prevented an automatic redirect. Please allow pop-ups or redirections from this page, then click the "Redirect" button to proceed.</p>
+            <button ref={buttonRef} onClick={handleRedirect} style={{display:'block',width:'40px', height:'20px',padding:'20px 12px', background:'#000000', color:'#ffffff'}}>
             Redirect To Shipdartexpress
             </button> 
             <button ref={buttonRef} onClick={handleRedirect} style={{ display: "none" }}>
