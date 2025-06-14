@@ -114,13 +114,15 @@ export default function Index() {
 
   return (
     <div style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <h2 style={{fontSize:'28px', color:'gray'}}>If not redirected then please allow the redirection from this page and click the button</h2>
-          <button ref={buttonRef} onClick={handleRedirect}>
-           Redirect To Shipdartexpress
-          </button> 
-          <button ref={buttonRef} onClick={handleRedirect} style={{ display: "none" }}>
-            Go to external app
-          </button> 
+          <div style={{width:'300px',height:'400px', background:'#e5e5e5', display:'flex', flexDirection:'col' }}>
+            <h2 style={{fontSize:'22px', color:'#000000'}}>If not redirected then please allow the redirection from this page and click the redirect button</h2>
+            <button ref={buttonRef} onClick={handleRedirect} style={{padding:'20px 12px', background:'#000000', color:'#ffffff'}}>
+            Redirect To Shipdartexpress
+            </button> 
+            <button ref={buttonRef} onClick={handleRedirect} style={{ display: "none" }}>
+              Go to external app
+            </button>
+          </div>
     </div>
   );
 }
