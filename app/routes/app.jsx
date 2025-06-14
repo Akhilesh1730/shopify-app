@@ -9,6 +9,7 @@ export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
+  console.log("app.sx tesing apikey",process.env.SHOPIFY_API_KEY)
   return { apiKey: process.env.SHOPIFY_API_KEY || "" };
 };
 
