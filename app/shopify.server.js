@@ -44,7 +44,7 @@ const shopify = shopifyApp({
                   console.log(error);
               }
               else {
-                  await fetch("https://db8b-2401-4900-889e-3461-b459-b22a-f5d8-e8e7.ngrok-free.app/store-shop", {
+                  const response = await fetch("https://db8b-2401-4900-889e-3461-b459-b22a-f5d8-e8e7.ngrok-free.app/store-shop", {
                       method: "POST",
                       headers: {
                           "Content-Type": "application/json",
@@ -52,7 +52,8 @@ const shopify = shopifyApp({
                       },
                       body: "",
                   });
-                  console.log("✅ Shop sent to backend API");
+                      
+                  console.log("✅ Shop sent to backend API", response);
               }
           });
       } catch (error) {

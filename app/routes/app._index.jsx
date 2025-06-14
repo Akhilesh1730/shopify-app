@@ -104,9 +104,6 @@ export default function Index() {
     }
     if (buttonRef.current) {
       buttonRef.current.click();
-      // setTimeout(()=>{
-      // // Auto click on mount
-      // },6000);
     }
   }, [productId, shopify]);
 
@@ -114,11 +111,13 @@ export default function Index() {
     window.parent.location.href= "https://app.shipdartexpress.com";
   }
 
-  const generateProduct = () => fetcher.submit({}, { method: "POST" });
 
   return (
     <div style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <h2 style={{fontSize:'28px', color:'gray'}}>Redirecting....</h2>
+          <h2 style={{fontSize:'28px', color:'gray'}}>If not redirected then please allow the redirection from this page and click the button</h2>
+          <button ref={buttonRef} onClick={handleRedirect}>
+           Redirect To Shipdartexpress
+          </button> 
           <button ref={buttonRef} onClick={handleRedirect} style={{ display: "none" }}>
             Go to external app
           </button> 
