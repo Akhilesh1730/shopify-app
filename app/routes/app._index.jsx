@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFetcher } from "@remix-run/react";
 import {
   Page,
@@ -90,6 +90,7 @@ export default function Index() {
   const fetcher = useFetcher();
   const shopify = useAppBridge();
   const buttonRef = useRef(null);
+  const [redirectTimer, setRedirectTimer] = useState(false);
   const isLoading =
     ["loading", "submitting"].includes(fetcher.state) &&
     fetcher.formMethod === "POST";
@@ -107,23 +108,31 @@ export default function Index() {
     }
   }, [productId, shopify]);
 
+  useEffect(()=>{
+    setTimeout(()=>{
+      setRedirectTimer(true);
+    },1500);
+  },[]);
+
   const handleRedirect = () =>{
-    window.parent.location.href= "https://app.shipdartexpress.com";
+    window.parent.location.href= "https://app.shipdartexpress.com/connect/store";
   }
 
 
   return (
-    <div style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-          <div style={{width:'500px',height:'380px', padding:'20px', background:'#e5e5e5' }}>
-            <h2 style={{fontSize:'22px', color:'#000000', marginBottom:'10px'}}>Shipdart Redirection</h2>
-            <p style={{fontSize:'18px', color:'#6c757d'}}>It looks like your browser may have prevented an automatic redirect. Please allow pop-ups or redirections from this page, then click the "Redirect" button to proceed.</p>
-            <button ref={buttonRef} onClick={handleRedirect} style={{display:'block',width:'40px', height:'20px',padding:'20px 12px', background:'#000000', color:'#ffffff'}}>
-            Redirect To Shipdartexpress
+    <div style={{width:'100%', height:'100%', display:'flex', justifyContent:'center', alignItems:'start'}}>
+          {redirectTimer ? (<div style={{width:'650px', padding:'30px', marginTop:'40px', background:'#e5e5e5', borderRadius:'4px' }}>
+            <h2 style={{fontSize:'22px', color:'#000000', marginBottom:'20px', fontStyle:'oblique', fontWeight:'600'}}>Shipdartexpress Redirection</h2>
+            <p style={{fontSize:'18px', color:'#6c757d', marginBottom:'20px', fontStyle:'oblique'}}>If you are not automatically redirected or blocked by browser, then please click the "Redirect" button below to continue.</p>
+            <div style={{display:"flex", justifyContent:'flex-end'}}>
+            <button ref={buttonRef} onClick={handleRedirect} style={{display:'block', cursor:'pointer', border:'none', borderRadius:'4px',padding:'16px 20px', fontWeight:'bold', background:'#000000', color:'#ffffff'}}>
+              Redirect to Shipdartexpress
             </button> 
-            <button ref={buttonRef} onClick={handleRedirect} style={{ display: "none" }}>
+            </div>
+          </div>) : <></>}
+          <button ref={buttonRef} onClick={handleRedirect} style={{ display: "none" }}>
               Go to external app
-            </button>
-          </div>
+          </button>
     </div>
   );
 }
