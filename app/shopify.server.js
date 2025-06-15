@@ -49,12 +49,8 @@ const shopify = shopifyApp({
                       headers: {
                           "Content-Type": "application/json",
                           "token": token
-                      },
-                      body: {
-                        ""
-                      },
+                      }
                   });
-                      
                   console.log("✅ Shop sent to backend API", response);
               }
           });

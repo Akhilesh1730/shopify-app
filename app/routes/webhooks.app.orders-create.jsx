@@ -17,7 +17,7 @@ export const action = async ({ request }) => {
                 console.log(error);
             }
             else {
-                const response = axios.post('', body, {
+                const response = axios.post('https://admin.shipdartexpress.com:9445/createOrderForShopify', body, {
                     headers: {
                         "token": token,
                         'Content-Type': "application/json"
