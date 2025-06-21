@@ -21,7 +21,7 @@ export const loader = async ({ request }) => {
   const externalUserId = url.searchParams.get("externalUserId");
   const errors = loginErrorMessage(await login(request));
 
-  return { errors, polarisTranslations };
+  return { errors, polarisTranslations, externalUserId };
 };
 
 export const action = async ({ request }) => {
