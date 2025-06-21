@@ -10,7 +10,7 @@ generator client {
 // See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "sqlite"
-  url      = "mysql://shipdart:ck-%R0L&W[;l@64.227.132.25:3306/sp_app"
+  url      = "file:dev.sqlite"
 }
 
 model Session {
