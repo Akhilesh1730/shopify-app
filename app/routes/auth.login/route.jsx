@@ -17,6 +17,8 @@ import { loginErrorMessage } from "./error.server";
 export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
 export const loader = async ({ request }) => {
+  const url = new URL(request.url);
+  const externalUserId = url.searchParams.get("externalUserId");
   const errors = loginErrorMessage(await login(request));
 
   return { errors, polarisTranslations };
@@ -34,7 +36,7 @@ export default function Auth() {
   const loaderData = useLoaderData();
   const actionData = useActionData();
   const [shop, setShop] = useState("");
-  const { errors } = actionData || loaderData;
+  const { errors, externalUserId  } = actionData || loaderData;
 
   return (
     <PolarisAppProvider i18n={loaderData.polarisTranslations}>
@@ -56,6 +58,7 @@ export default function Auth() {
                 error={errors.shop}
               />
               <Button submit>Log in</Button>
+              <h1>{externalUserId }</h1>
             </FormLayout>
           </Form>
         </Card>
