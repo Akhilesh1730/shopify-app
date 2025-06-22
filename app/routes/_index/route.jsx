@@ -12,6 +12,8 @@ export const loader = async ({ request }) => {
 
   // return { showForm: Boolean(login) };
   await login(request);
+
+  return null;
 };
 
 export default function App() {
