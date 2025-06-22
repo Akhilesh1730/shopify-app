@@ -14,6 +14,10 @@ import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 import { login } from "../../shopify.server";
 import { loginErrorMessage } from "./error.server";
 
+// Cookie Code
+import { createCookie } from "@remix-run/node";
+const stateCookie = createCookie("external_state");
+
 export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
 export const loader = async ({ request }) => {
@@ -26,11 +30,16 @@ export const action = async ({ request }) => {
   const url = new URL(request.url);
   const state = url.searchParams.get("state");
   console.log("👉 State being sent to login():", state);
+   // Set cookie with state
+  const headers = new Headers();
+  headers.append("Set-Cookie", await stateCookie.serialize(state));
   const errors = loginErrorMessage(await login(request,{state}));
 
-  return {
-    errors,
-  };
+  // return {
+  //   errors,
+  // };
+
+  return json({ errors }, { headers });
 };
 
 export default function Auth() {
