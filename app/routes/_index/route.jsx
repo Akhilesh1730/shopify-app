@@ -11,11 +11,7 @@ export const loader = async ({ request }) => {
   // }
 
   // return { showForm: Boolean(login) };
-  const errors = loginErrorMessage(await login(request));
-
-  return {
-    errors,
-  };
+  await login(request);
 };
 
 export default function App() {
