@@ -23,7 +23,9 @@ export const loader = async ({ request }) => {
 };
 
 export const action = async ({ request }) => {
-  const errors = loginErrorMessage(await login(request));
+  const url = new URL(request.url);
+  const state = url.searchParams.get("state");
+  const errors = loginErrorMessage(await login(request,{state}));
 
   return {
     errors,

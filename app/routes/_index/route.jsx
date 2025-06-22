@@ -10,11 +10,14 @@ export const loader = async ({ request }) => {
     throw redirect(`/app?${url.searchParams.toString()}`);
   }
 
-  return { showForm: Boolean(login) };
+  // Pick up state if present
+  const state = url.searchParams.get("state");
+
+  return { showForm: Boolean(login), state };
 };
 
 export default function App() {
-  const { showForm } = useLoaderData();
+  const { showForm, state } = useLoaderData();
 
   return (
     <div className={styles.index}>
@@ -24,7 +27,7 @@ export default function App() {
           A tagline about [your app] that describes your value proposition.
         </p>
         {showForm && (
-          <Form className={styles.form} method="post" action="/auth/login">
+          <Form className={styles.form} method="post" action={`/auth/login${state ? `?state=${encodeURIComponent(state)}` : ""}`}>
             <label className={styles.label}>
               <span>Shop domain</span>
               <input className={styles.input} type="text" name="shop" />
