@@ -28,9 +28,9 @@ const shopify = shopifyApp({
     ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
     : {}),
     hooks: {
-      afterAuth: async ({ session, admin, billing, redirect, state, request }) => {
-        console.log("afterauth state", state);
-        console.log("afterauth state request", request);
+      afterAuth: async ({ session, admin, billing, redirect, state }) => {
+         const yourCustomAppState = await sessionStorage.get("your_custom_app_state_key");
+        console.log("afterauth state 1", yourCustomAppState);
         console.log("✅ afterAuth called for", session);
         console.log("✅ afterAuth called for env file key",  process.env.SECRET_KEY);
         // 🔥 Send shop name to your Flask API
