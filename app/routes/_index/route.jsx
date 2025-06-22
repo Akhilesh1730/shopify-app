@@ -61,7 +61,7 @@ import styles from "./styles.module.css";
 
 export const loader = async ({ request }) => {
   
-  await login(request);
+  await login(request, {shop:''});
   return { showForm: Boolean(login) };
 };
 
