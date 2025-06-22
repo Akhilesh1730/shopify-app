@@ -25,6 +25,7 @@ export const loader = async ({ request }) => {
 export const action = async ({ request }) => {
   const url = new URL(request.url);
   const state = url.searchParams.get("state");
+  console.log("👉 State being sent to login():", state);
   const errors = loginErrorMessage(await login(request,{state}));
 
   return {
