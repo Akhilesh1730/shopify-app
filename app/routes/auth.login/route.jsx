@@ -28,7 +28,7 @@ export const action = async ({ request }) => {
   const state = url.searchParams.get("state");
   console.log("👉 State being sent to login():", state);
  
-  const errors = loginErrorMessage(await login(request, state));
+  const errors = loginErrorMessage(await login(request, {state}));
 
   return {
     errors,
