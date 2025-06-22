@@ -29,10 +29,7 @@ const shopify = shopifyApp({
     : {}),
     hooks: {
       afterAuth: async ({ session, admin, billing, redirect, state }) => {
-        const shopState = await prisma.shopState.findUnique({
-          where: { shop: session.shop },
-        });
-        console.log("afterauth state 1", shopState);
+        console.log("afterauth state 1");
         console.log("✅ afterAuth called for", session);
         console.log("✅ afterAuth called for env file key",  process.env.SECRET_KEY);
         // 🔥 Send shop name to your Flask API

@@ -12,7 +12,6 @@ import {
 import polarisTranslations from "@shopify/polaris/locales/en.json";
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 import { login } from "../../shopify.server";
-import prisma from "../../db.server"; 
 import { loginErrorMessage } from "./error.server";
 
 
@@ -28,15 +27,7 @@ export const action = async ({ request }) => {
   const url = new URL(request.url);
   const state = url.searchParams.get("state");
   console.log("👉 State being sent to login():", state);
-  const formData = await request.formData();
-  const shop = formData.get("shop");
-   if (state) {
-    await prisma.shopState.upsert({
-      where: { shop },
-      update: { state },
-      create: { shop, state },
-    });
-  }
+ 
   const errors = loginErrorMessage(await login(request));
 
   return {
