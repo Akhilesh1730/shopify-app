@@ -42,7 +42,7 @@ export const loader = async ({ request }) => {
                     // });
                     // console.log("✅ Shop sent to backend API", response);
                     // return redirect('/exit');
-                    // return {jwtToken};
+                    return {jwtToken};
                 }
             });
         } catch (error) {
