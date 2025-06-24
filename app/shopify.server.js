@@ -52,12 +52,12 @@ const shopify = shopifyApp({
                       }
                   });
                   console.log("✅ Shop sent to backend API", response);
+                  return redirect('/exit');
               }
           });
       } catch (error) {
           console.error("❌ Error sending shop to backend:", error);
       }
-        return redirect('/exit');
       },
     },
 });
