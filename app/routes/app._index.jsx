@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -16,9 +16,13 @@ import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
+  const url = new URL(request.url);
+  const token = url.searchParams.get("token");
+
+  console.log("👉 Token in app/_index loader", token);
   await authenticate.admin(request);
 
-  return null;
+  return { token };
 };
 
 export const action = async ({ request }) => {
@@ -91,6 +95,7 @@ export default function Index() {
   const shopify = useAppBridge();
   const buttonRef = useRef(null);
   const [redirectTimer, setRedirectTimer] = useState(false);
+  const { token } = useLoaderData();
   const isLoading =
     ["loading", "submitting"].includes(fetcher.state) &&
     fetcher.formMethod === "POST";
@@ -115,7 +120,7 @@ export default function Index() {
   },[]);
 
   const handleRedirect = () =>{
-    window.parent.location.href= "https://app.shipdartexpress.com/connect/store";
+    window.parent.location.href= "https://app.shipdartexpress.com/connect/store?token="+token;
   }
 
 

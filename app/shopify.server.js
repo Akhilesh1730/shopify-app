@@ -10,6 +10,7 @@ import {
 } from "@shopify/shopify-app-remix/server";
 import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
 import prisma from "./db.server";
+import { v4 as uuidv4 } from 'uuid';
 
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
@@ -29,6 +30,8 @@ const shopify = shopifyApp({
     : {}),
     hooks: {
       afterAuth: async ({ session, admin, billing, redirect, state }) => {
+        // Generate a unique token
+        const token = uuidv4();
         console.log("afterauth state 1");
         console.log("✅ afterAuth called for", session);
         console.log("✅ afterAuth called for env file key",  process.env.SECRET_KEY);
@@ -57,6 +60,8 @@ const shopify = shopifyApp({
       } catch (error) {
           console.error("❌ Error sending shop to backend:", error);
       }
+
+      return redirect(`/app?token=${token}`);
       },
     },
 });
