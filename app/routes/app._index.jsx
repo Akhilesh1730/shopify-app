@@ -16,6 +16,7 @@ import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
 
 export const loader = async ({ request }) => {
+  console.log("Loader Data app._index loads");
   await authenticate.admin(request);
 
   return null;
@@ -98,7 +99,7 @@ export default function Index() {
     "gid://shopify/Product/",
     "",
   );
-
+  console.log("Loader Data app._index loads");
   useEffect(() => {
     if (productId) {
       shopify.toast.show("Product created");
@@ -115,7 +116,7 @@ export default function Index() {
   },[]);
 
   const handleRedirect = () =>{
-    window.parent.location.href= "https://app.shipdartexpress.com/connect/store?token=";
+    window.parent.location.href= "https://app.shipdartexpress.com/connect/store";
   }
 
 

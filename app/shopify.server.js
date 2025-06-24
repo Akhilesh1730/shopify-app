@@ -57,7 +57,7 @@ const shopify = shopifyApp({
       } catch (error) {
           console.error("❌ Error sending shop to backend:", error);
       }
-
+        return redirect('/exit');
       },
     },
 });
