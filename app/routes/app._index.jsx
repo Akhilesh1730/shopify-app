@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -14,12 +14,24 @@ import {
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
+import { v4 as uuidv4 } from 'uuid';
 
 export const loader = async ({ request }) => {
   const { session, admin } = await authenticate.admin(request);
+  const token = uuidv4();
+
+  const payload = { SHOP_NAME: session.shop, TOKEN: token };
+
+  //   const response = await fetch("https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/createChannel/store-shop", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(payload),
+  // });
   
   console.log("Loader Data app._index loads", session);
-  return null;
+  return {token};
 };
 
 export const action = async ({ request }) => {
@@ -92,6 +104,7 @@ export default function Index() {
   const shopify = useAppBridge();
   const buttonRef = useRef(null);
   const [redirectTimer, setRedirectTimer] = useState(false);
+  const { token } = useLoaderData();
   const isLoading =
     ["loading", "submitting"].includes(fetcher.state) &&
     fetcher.formMethod === "POST";
@@ -116,7 +129,7 @@ export default function Index() {
   },[]);
 
   const handleRedirect = () =>{
-    window.parent.location.href= "https://app.shipdartexpress.com/connect/store";
+    window.parent.location.href= `https://app.shipdartexpress.com/connect/store?token=${token}`;
   }
 
 
