@@ -17,40 +17,35 @@ import { authenticate } from "../shopify.server";
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 
+function signJwtAsync(data, secret, options) {
+  return new Promise((resolve, reject) => {
+    jwt.sign(data, secret, options, (err, token) => {
+      if (err) reject(err);
+      else resolve(token);
+    });
+  });
+}
+
 export const loader = async ({ request }) => {
   const { session, admin } = await authenticate.admin(request);
   const id = uuidv4();
-  let jwtToken;
+  // let jwtToken;
+  console.log("Loader Data app._index loads", session);
 
   try {
-            var data = { SHOP_NAME: session.shop, TOKEN: id };
+    var data = { SHOP_NAME: session.shop, TOKEN: id };
 
-            var expiresIn = '1h'
-            data = JSON.stringify(data);
-            jwt.sign({ data }, process.env.SECRET_KEY, { expiresIn }, async (error, token) => {
-                if (error) {
-                    console.log(error);
-                }
-                else {
-                    jwtToken = token;
-                    // const response = await fetch("https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/createChannel/store-shop", {
-                    //     method: "POST",
-                    //     headers: {
-                    //         "Content-Type": "application/json",
-                    //         "token": token
-                    //     }
-                    // });
-                    // console.log("✅ Shop sent to backend API", response);
-                    // return redirect('/exit');
-                    return {jwtToken};
-                }
-            });
-        } catch (error) {
-            console.error("❌ Error sending shop to backend:", error);
-        }
+    var expiresIn = "1h";
+    data = JSON.stringify(data);
+    const jwtToken = await signJwtAsync({ data }, process.env.SECRET_KEY, {
+      expiresIn,
+    });
+    return {jwtToken};
+  } catch (error) {
+    console.error("❌ Error sending shop to backend:", error);
+    return {jwtToken:null};
+  }
   
-  console.log("Loader Data app._index loads", session);
-  return {jwtToken};
 };
 
 export const action = async ({ request }) => {
