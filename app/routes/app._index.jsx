@@ -40,9 +40,9 @@ export const loader = async ({ request }) => {
                     //         "token": token
                     //     }
                     // });
-                    console.log("✅ Shop sent to backend API", response);
+                    // console.log("✅ Shop sent to backend API", response);
                     // return redirect('/exit');
-                    return {jwtToken};
+                    // return {jwtToken};
                 }
             });
         } catch (error) {
@@ -50,7 +50,7 @@ export const loader = async ({ request }) => {
         }
   
   console.log("Loader Data app._index loads", session);
-  return null;
+  return {jwtToken};
 };
 
 export const action = async ({ request }) => {
