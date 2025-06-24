@@ -15,23 +15,42 @@ import {
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
 import { v4 as uuidv4 } from 'uuid';
+import jwt from 'jsonwebtoken';
 
 export const loader = async ({ request }) => {
   const { session, admin } = await authenticate.admin(request);
-  const token = uuidv4();
+  const id = uuidv4();
+  let jwtToken;
 
-  const payload = { SHOP_NAME: session.shop, TOKEN: token };
+  try {
+            var data = { SHOP_NAME: session.shop, TOKEN: id };
 
-  //   const response = await fetch("https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/createChannel/store-shop", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(payload),
-  // });
+            var expiresIn = '1h'
+            data = JSON.stringify(data);
+            jwt.sign({ data }, process.env.SECRET_KEY, { expiresIn }, async (error, token) => {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    jwtToken = token;
+                    // const response = await fetch("https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/createChannel/store-shop", {
+                    //     method: "POST",
+                    //     headers: {
+                    //         "Content-Type": "application/json",
+                    //         "token": token
+                    //     }
+                    // });
+                    console.log("✅ Shop sent to backend API", response);
+                    // return redirect('/exit');
+                    return {jwtToken};
+                }
+            });
+        } catch (error) {
+            console.error("❌ Error sending shop to backend:", error);
+        }
   
   console.log("Loader Data app._index loads", session);
-  return {token};
+  return null;
 };
 
 export const action = async ({ request }) => {
@@ -104,7 +123,7 @@ export default function Index() {
   const shopify = useAppBridge();
   const buttonRef = useRef(null);
   const [redirectTimer, setRedirectTimer] = useState(false);
-  const { token } = useLoaderData();
+  const { jwtToken } = useLoaderData();
   const isLoading =
     ["loading", "submitting"].includes(fetcher.state) &&
     fetcher.formMethod === "POST";
@@ -129,7 +148,7 @@ export default function Index() {
   },[]);
 
   const handleRedirect = () =>{
-    window.parent.location.href= `https://app.shipdartexpress.com/connect/store?token=${token}`;
+    window.parent.location.href = true ? `http://localhost:5173/signin?token=${jwtToken}&shopifyConnect=1` : `https://app.shipdartexpress.com/connect/store?token=${jwtToken}`;
   }
 
 
