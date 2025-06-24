@@ -31,7 +31,7 @@ const shopify = shopifyApp({
     hooks: {
       afterAuth: async ({ session, admin, billing, redirect, state }) => {
         // Generate a unique token
-        const token = uuidv4();
+        const tokenId = uuidv4();
         console.log("afterauth state 1");
         console.log("✅ afterAuth called for", session);
         console.log("✅ afterAuth called for env file key",  process.env.SECRET_KEY);
@@ -61,7 +61,7 @@ const shopify = shopifyApp({
           console.error("❌ Error sending shop to backend:", error);
       }
 
-      return redirect(`/app?token=${token}`);
+      return redirect(`/app?token=${tokenId}`);
       },
     },
 });
