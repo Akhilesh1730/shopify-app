@@ -17,22 +17,6 @@ import { authenticate } from "../shopify.server";
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 
-const getShopIdAsync = async () => {
-  const response = await fetch(
-    "https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/create",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-
-  if (response.status === 200) {
-    const json = await response.json();
-    return json;
-  } else {
-    throw new Error("API Call Failed");
-  }
-};
 
 export const loader = async ({ request }) => {
   const { session, admin } = await authenticate.admin(request);
@@ -40,9 +24,25 @@ export const loader = async ({ request }) => {
   console.log("Loader Data app._index loads", session);
 
    try {
-    const response = await getShopIdAsync();
-    console.log("✅ response", response);
-    return { sid: '123' }; // replace '123' with response.something if needed
+    const response = await fetch(
+      "https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/create",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          SHOP_NAME: session.shop,
+          CHANNEL_ID: 1,
+        })
+      },
+    );
+    console.log("res", response);
+    if (response.status === 200) {
+      const json = await response.json();
+      console.log("res", json);
+      return {sid:'123'};
+    } else {
+      throw new Error("API Call Failed");
+    }
   } catch (error) {
     console.error("❌ Error sending shop to backend:", error);
     return { sid: null };
