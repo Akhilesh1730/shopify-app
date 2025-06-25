@@ -35,7 +35,7 @@ export const loader = async ({ request }) => {
         })
       },
     );
-    console.log("res", response);
+    // console.log("res", response);
     if (response.status === 200) {
       const json = await response.json();
       console.log("res", json);
