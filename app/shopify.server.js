@@ -1,6 +1,5 @@
 import "@shopify/shopify-app-remix/adapters/node";
 import { redirect } from "@remix-run/node";
-import jwt from 'jsonwebtoken';
 
 import {
   ApiVersion,
