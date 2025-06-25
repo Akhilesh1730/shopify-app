@@ -37,9 +37,9 @@ export const loader = async ({ request }) => {
     );
     // console.log("res", response);
     if (response.status === 200) {
-      const json = await response.json();
-      console.log("res", json);
-      return {sid:'123'};
+      const data = await response.json();
+      console.log("res", data);
+      return {sid:data?.ID};
     } else {
       throw new Error("API Call Failed");
     }
