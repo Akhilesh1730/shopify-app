@@ -144,7 +144,7 @@ export default function Index() {
   },[]);
 
   const handleRedirect = () =>{
-    window.parent.location.href = true ? `http://localhost:5173/signin?token=${sid}&shopifyConnect=1` : `https://app.shipdartexpress.com/connect/store?token=${sid}`;
+    window.parent.location.href = true ? `http://localhost:5173/signin?sid=${sid}&shopifyConnect=1` : `https://app.shipdartexpress.com/connect/store?sid=${sid}&shopifyConnect=1`;
   }
 
 
