@@ -33,31 +33,31 @@ const shopify = shopifyApp({
         console.log("✅ afterAuth called for", session);
         console.log("✅ afterAuth called for env file key",  process.env.SECRET_KEY);
         // 🔥 Send shop name to your Flask API
-        try {
-          var data = {
-              "SHOP_NAME": session.shop,
-          }
-          var expiresIn = '1h'
-          data = JSON.stringify(data);
-          jwt.sign({ data }, process.env.SECRET_KEY, { expiresIn }, async (error, token) => {
-              if (error) {
-                  console.log(error);
-              }
-              else {
-                  const response = await fetch("https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/createChannel/store-shop", {
-                      method: "POST",
-                      headers: {
-                          "Content-Type": "application/json",
-                          "token": token
-                      }
-                  });
-                  console.log("✅ Shop sent to backend API", response);
-                  return redirect('/exit');
-              }
-          });
-      } catch (error) {
-          console.error("❌ Error sending shop to backend:", error);
-      }
+      //   try {
+      //     var data = {
+      //         "SHOP_NAME": session.shop,
+      //     }
+      //     var expiresIn = '1h'
+      //     data = JSON.stringify(data);
+      //     jwt.sign({ data }, process.env.SECRET_KEY, { expiresIn }, async (error, token) => {
+      //         if (error) {
+      //             console.log(error);
+      //         }
+      //         else {
+      //             const response = await fetch("https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/createChannel/store-shop", {
+      //                 method: "POST",
+      //                 headers: {
+      //                     "Content-Type": "application/json",
+      //                     "token": token
+      //                 }
+      //             });
+      //             console.log("✅ Shop sent to backend API", response);
+      //             return redirect('/exit');
+      //         }
+      //     });
+      // } catch (error) {
+      //     console.error("❌ Error sending shop to backend:", error);
+      // }
       },
     },
 });

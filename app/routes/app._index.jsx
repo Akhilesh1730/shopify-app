@@ -17,33 +17,35 @@ import { authenticate } from "../shopify.server";
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 
-function signJwtAsync(data, secret, options) {
-  return new Promise((resolve, reject) => {
-    jwt.sign(data, secret, options, (err, token) => {
-      if (err) reject(err);
-      else resolve(token);
-    });
-  });
-}
+const getShopIdAsync = async () => {
+  const response = await fetch(
+    "https://admin.shipdartexpress.com:9445/api/channelCustomerMapping/create",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+
+  if (response.status === 200) {
+    const json = await response.json();
+    return json;
+  } else {
+    throw new Error("API Call Failed");
+  }
+};
 
 export const loader = async ({ request }) => {
   const { session, admin } = await authenticate.admin(request);
-  const id = uuidv4();
   // let jwtToken;
   console.log("Loader Data app._index loads", session);
 
-  try {
-    var data = { SHOP_NAME: session.shop, TOKEN: id };
-
-    var expiresIn = "1h";
-    data = JSON.stringify(data);
-    const jwtToken = await signJwtAsync({ data }, process.env.SECRET_KEY, {
-      expiresIn,
-    });
-    return {jwtToken};
+   try {
+    const response = await getShopIdAsync();
+    console.log("✅ response", response);
+    return { sid: '123' }; // replace '123' with response.something if needed
   } catch (error) {
     console.error("❌ Error sending shop to backend:", error);
-    return {jwtToken:null};
+    return { sid: null };
   }
   
 };
@@ -118,7 +120,7 @@ export default function Index() {
   const shopify = useAppBridge();
   const buttonRef = useRef(null);
   const [redirectTimer, setRedirectTimer] = useState(false);
-  const { jwtToken } = useLoaderData();
+  const { sid } = useLoaderData();
   const isLoading =
     ["loading", "submitting"].includes(fetcher.state) &&
     fetcher.formMethod === "POST";
@@ -143,7 +145,7 @@ export default function Index() {
   },[]);
 
   const handleRedirect = () =>{
-    window.parent.location.href = true ? `http://localhost:5173/signin?token=${jwtToken}&shopifyConnect=1` : `https://app.shipdartexpress.com/connect/store?token=${jwtToken}`;
+    window.parent.location.href = true ? `http://localhost:5173/signin?token=${sid}&shopifyConnect=1` : `https://app.shipdartexpress.com/connect/store?token=${sid}`;
   }
 
 
